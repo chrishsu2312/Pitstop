@@ -1,0 +1,55 @@
+<style>
+  #map-canvas{
+    height: 800px;
+    max-width: 1200px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+</style>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+<strong>Start address:</strong>
+<%= @path.start_address %>
+</p>
+
+<p>
+<strong>End address:</strong>
+<%= @path.end_address %>
+</p>
+
+<table>
+  <tr>
+    <th>Place</th>
+    <th>Filler</th>
+    <th>Filler</th>
+  </tr>
+
+  <% @nearby_places.keys.each do |names|%>
+  <tr>
+    <td><%= @nearby_places[names]["name"] %></td>
+    <td><%= @nearby_places[names]["url"] %></td>
+    <td><%= @nearby_places[names]["phone"] %></td>
+  </tr>
+  <% end %>
+
+</table>
+
+
+
+<div class="map-canvas" id="map-canvas"></div>
+<%= link_to 'Edit', edit_path_path(@path) %> |
+<%= link_to 'Back', paths_path %>
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZDPNNBRPCecNa5YSDdLRp0VokNsxiwKk&sensor=false&callback=initialize"></script>
+<script src="/assets/maps.js?body=1"></script>
+<script>
+  function initialize() {
+    make_map([
+    <% @nearby_places.keys.each do |p| %>
+      ["<%= @nearby_places[p][:coor][0].coordinates[0] %>", "<%= @nearby_places[p][:coor][0].coordinates[1] %>", "<%= p %>"],
+    <% end %>
+    ]);
+  }
+</script>

@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  start_address: MyString
+  end_address: MyString
+
+two:
+  start_address: MyString
+  end_address: MyString
