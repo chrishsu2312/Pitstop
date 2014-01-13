@@ -1,6 +1,7 @@
 Mockup::Application.routes.draw do
+  get 'paths/:id/:place' => 'paths#place'
   resources :paths
-
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

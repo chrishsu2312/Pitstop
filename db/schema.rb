@@ -11,13 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140102001948) do
+ActiveRecord::Schema.define(version: 20140113014658) do
 
   create_table "paths", force: true do |t|
     t.string   "start_address"
     t.string   "end_address"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "polyline"
+    t.text     "place"
   end
 
 end

@@ -1,4 +1,5 @@
 include Yelp::V2::Search::Request
+include Yelp::V2::Business::Request
 
 class PathsController < ApplicationController
   before_action :set_path, only: [:show, :edit, :update, :destroy]
@@ -11,33 +12,7 @@ class PathsController < ApplicationController
 
   # GET /paths/1
   # GET /paths/1.json
-  def show
-    directions = GoogleMapDirections::Directions.new(@path.start_address, @path.end_address)      
-    @points = Polylines::Decoder.decode_polyline(directions.polyline) 
-    @nearby_places = Hash.new
-    if directions.status == 'OK'            
-      client = Yelp::Client.new
-      index, counter = 0, 0
-
-      while index < @points.length
-        requests = GeoPoint.new(
-          :term => "resturants",
-          :latitude => @points[index][0],
-          :longitude => @points[index][1],
-          :limit => 3
-        )
-        yelp_response = client.search(requests)
-        if yelp_response != nil and yelp_response["businesses"] != nil
-          yelp_response["businesses"].each do |place|            
-            place[:coor] = Geocoder.search(place["location"]["display_address"].join(''))
-            @nearby_places[place["name"]] = place
-
-          end
-        end
-        counter = counter + 1
-        index = index + Integer((@points.length)/20)
-      end      
-    end
+  def show    
   end
 
   # GET /paths/new
@@ -48,21 +23,33 @@ class PathsController < ApplicationController
   # GET /paths/1/edit
   def edit
   end
+  
+  # Get /paths/1/in-and-out
+  def place
+    @path = Path.find(params[:id])
+    client = Yelp::Client.new
+    requests = Id.new(:yelp_business_id => params[:place])
+    
+    @place = client.search(requests)
+    @start_to_place = GoogleMapDirections::Directions.new(@path.start_address, @place["location"]["display_address"][0])    
+    @place_to_end = GoogleMapDirections::Directions.new(@place["location"]["display_address"][0], @path.end_address)    
+
+  end
 
   # POST /paths
   # POST /paths.json
   def create
-    @path = Path.new(path_params)
+    directions = GoogleMapDirections::Directions.new(path_params["start_address"], path_params["end_address"])    
+    @path = Path.new({"start_address"=>path_params["start_address"], "end_address"=>path_params["end_address"], "polyline"=>directions.polyline})    
 
-
-    respond_to do |format|
+    if directions.status != 'OK'
+      redirect_to new_path_path(@photo), alert: "Bad addresses, please try again"
+    else
       if @path.save
-
-        format.html { redirect_to @path, notice: 'Path was successfully created.'}
-        format.json { render action: 'show', status: :created, location: @path }
+        get_yelp_response(@path.id, directions)
+        redirect_to @path
       else
-        format.html { render action: 'new' }
-        format.json { render json: @path.errors, status: :unprocessable_entity }
+        redirect_to new_path_path(@photo), alert: "You had a save error, please try again."
       end
     end
   end
@@ -99,6 +86,33 @@ class PathsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def path_params
-    params.require(:path).permit(:start_address, :end_address)
+    params.require(:path).permit(:start_address, :end_address, :polyline)
+  end
+
+  def get_yelp_response(path_id, directions)
+    @path = Path.find(path_id)
+    @path.place = ""
+    points = Polylines::Decoder.decode_polyline(@path.polyline)
+    client = Yelp::Client.new
+    redundants = Set.new
+    (0..points.length-1).step(Integer(points.length/10)).map{|i| points[i]}.each do |x|  
+      requests = GeoPoint.new(
+        :term => "resturants",
+        :latitude => x[0],
+        :longitude => x[1],
+        :limit => 4,
+        :radius_filter => [[directions.distance_in_meters, 500].max, 40000].min
+      )
+      yelp_response = client.search(requests)      
+      if yelp_response != nil and yelp_response["businesses"] != nil
+        yelp_response["businesses"].each do |place|   
+          if !redundants.member?(place["id"])
+            @path.place << "*" + place["id"] + "|" + place["name"] + "$" + place["location"]["display_address"].join(' ') + "^"
+            redundants.add(place["id"])
+          end
+        end
+      end
+    end
+    @path.save
   end
 end

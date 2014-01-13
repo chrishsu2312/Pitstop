@@ -1,61 +1,79 @@
 var map;
 var zoom;
+var geocoder;
+var lat_long;
+var line;
+var poly;
+var polyOptions;
+var bounds;
+var marker;
 
-function make_map(pins) //pins is a list of pins, a pin is the list [lat, lng, name]
-{
+function make_map(pins, polyline){
+  //Create the actual map
   var mapOptions = {
     disableDefaultUI: false,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
-  map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-  var infowindow = new google.maps.InfoWindow();
-  var bounds = new google.maps.LatLngBounds();
+  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+  bounds = new google.maps.LatLngBounds();
+
+  //Adds the polyline
+  line = new google.maps.geometry.encoding.decodePath(polyline);
+  poly = new google.maps.Polyline({
+    path: line,
+       strokeColor: '#000000',
+       strokeWeight: 3,
+       StrokeOpacity: 1.0,
+  });
+  poly.setMap(map);
+
+  //Adds the markers
+  geocoder = new google.maps.Geocoder();
   if (pins != null) {
-    for (var i = 0; i < pins.length; i++){
-      marker = new google.maps.Marker({
-        position: new google.maps.LatLng(pins[i][0], pins[i][1]),
-        url: '/photos/' + pins[i][3],
-        map: map
-      });
-
-      google.maps.event.addListener(marker, 'click', (function(marker, i) {
-        return function() {
-          infowindow.setContent('<a href="http://photoevidence.herokuapp.com'+marker.url+'">'+'Show image</a><br>' + pins[i][2]);
-          infowindow.open(map, marker);
-        }
-      })(marker, i));
-      bounds.extend(marker.position);
+    for (var i = 0; i < pins.length; i++){    
+      geocoder.geocode( { 'address': pins[i][0]}, function(results, status) {
+        marker = new google.maps.Marker({
+          position: results[0].geometry.location,
+               map: map
+        });
+        bounds.extend(marker.position);
+        map.fitBounds(bounds);
+        zoom = getBoundsZoomLevel(bounds);
+      });      
     }
-
-    map.fitBounds(bounds);
-    zoom = getBoundsZoomLevel(bounds);
   }
+
 }
+
 
 function getBoundsZoomLevel(bounds) {
-    var WORLD_DIM = { height: 256, width: 256 };
-    var ZOOM_MAX = 21;
+  var WORLD_DIM = { height: 256, width: 256 };
+  var ZOOM_MAX = 21;
 
-    function latRad(lat) {
-        var sin = Math.sin(lat * Math.PI / 180);
-        var radX2 = Math.log((1 + sin) / (1 - sin)) / 2;
-        return Math.max(Math.min(radX2, Math.PI), -Math.PI) / 2;
-    }
+  function latRad(lat) {
+    var sin = Math.sin(lat * Math.PI / 180);
+    var radX2 = Math.log((1 + sin) / (1 - sin)) / 2;
+    return Math.max(Math.min(radX2, Math.PI), -Math.PI) / 2;
+  }
 
-    function zoom(mapPx, worldPx, fraction) {
-        return Math.floor(Math.log(mapPx / worldPx / fraction) / Math.LN2);
-    }
+  function zoom(mapPx, worldPx, fraction) {
+    return Math.floor(Math.log(mapPx / worldPx / fraction) / Math.LN2);
+  }
 
-    var ne = bounds.getNorthEast();
-    var sw = bounds.getSouthWest();
+  var ne = bounds.getNorthEast();
+  var sw = bounds.getSouthWest();
 
-    var latFraction = (latRad(ne.lat()) - latRad(sw.lat())) / Math.PI;
+  var latFraction = (latRad(ne.lat()) - latRad(sw.lat())) / Math.PI;
 
-    var lngDiff = ne.lng() - sw.lng();
-    var lngFraction = ((lngDiff < 0) ? (lngDiff + 360) : lngDiff) / 360;
+  var lngDiff = ne.lng() - sw.lng();
+  var lngFraction = ((lngDiff < 0) ? (lngDiff + 360) : lngDiff) / 360;
 
-    var latZoom = zoom(100, WORLD_DIM.height, latFraction);
-    var lngZoom = zoom(200, WORLD_DIM.width, lngFraction);
+  var latZoom = zoom(100, WORLD_DIM.height, latFraction);
+  var lngZoom = zoom(200, WORLD_DIM.width, lngFraction);
 
-    return Math.min(latZoom, lngZoom, ZOOM_MAX);
+  return Math.min(latZoom, lngZoom, ZOOM_MAX);
 }
+
+
+
+

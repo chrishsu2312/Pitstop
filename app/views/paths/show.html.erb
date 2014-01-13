@@ -19,37 +19,22 @@
 <%= @path.end_address %>
 </p>
 
-<table>
-  <tr>
-    <th>Place</th>
-    <th>Filler</th>
-    <th>Filler</th>
-  </tr>
-
-  <% @nearby_places.keys.each do |names|%>
-  <tr>
-    <td><%= @nearby_places[names]["name"] %></td>
-    <td><%= @nearby_places[names]["url"] %></td>
-    <td><%= @nearby_places[names]["phone"] %></td>
-  </tr>
-  <% end %>
-
-</table>
-
-
+<% @path.place.scan(/\*(.*?)\$/).each do |names|%>
+  <p><%= names[0].scan(/\|(.*)$/)[0][0] %> <%= names[0].scan(/^(.*)\|/)[0][0]%></p>    
+<% end %>
 
 <div class="map-canvas" id="map-canvas"></div>
 <%= link_to 'Edit', edit_path_path(@path) %> |
 <%= link_to 'Back', paths_path %>
 
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZDPNNBRPCecNa5YSDdLRp0VokNsxiwKk&sensor=false&callback=initialize"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZDPNNBRPCecNa5YSDdLRp0VokNsxiwKk&sensor=false&libraries=geometry&callback=initialize"></script>
 <script src="/assets/maps.js?body=1"></script>
 <script>
   function initialize() {
     make_map([
-    <% @nearby_places.keys.each do |p| %>
-      ["<%= @nearby_places[p][:coor][0].coordinates[0] %>", "<%= @nearby_places[p][:coor][0].coordinates[1] %>", "<%= p %>"],
+    <% @path.place.scan(/\*(.*?)\^/).each do |p| %>
+      ["<%= p[0].scan(/\$(.*?)$/)[0][0] %>", "<%= p[0].scan(/\|(.*?)\$/)[0][0] %>"],
     <% end %>
-    ]);
+    ], String("<%= @path.polyline %>"));
   }
 </script>
