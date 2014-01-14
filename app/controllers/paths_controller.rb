@@ -40,7 +40,7 @@ class PathsController < ApplicationController
   # POST /paths.json
   def create
     directions = GoogleMapDirections::Directions.new(path_params["start_address"], path_params["end_address"])    
-    @path = Path.new({"start_address"=>path_params["start_address"], "end_address"=>path_params["end_address"], "polyline"=>directions.polyline})    
+    @path = Path.new({"start_address"=>path_params["start_address"], "end_address"=>path_params["end_address"], "polyline"=>directions.polyline, "search_term" => path_params["search_term"]})    
 
     if directions.status != 'OK'
       redirect_to new_path_path(@photo), alert: "Bad addresses, please try again"
@@ -86,7 +86,7 @@ class PathsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def path_params
-    params.require(:path).permit(:start_address, :end_address, :polyline)
+    params.require(:path).permit(:search_term,:start_address, :end_address, :polyline)
   end
 
   def get_yelp_response(path_id, directions)
@@ -97,7 +97,7 @@ class PathsController < ApplicationController
     redundants = Set.new
     (0..points.length-1).step(Integer(points.length/10)).map{|i| points[i]}.each do |x|  
       requests = GeoPoint.new(
-        :term => "resturants",
+        :term => @path["search_term"],
         :latitude => x[0],
         :longitude => x[1],
         :limit => 4,

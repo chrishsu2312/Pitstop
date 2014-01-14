@@ -4,13 +4,16 @@
       <h2><%= pluralize(@path.errors.count, "error") %> prohibited this path from being saved:</h2>
 
       <ul>
-      <% @path.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
+        <% @path.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
-
+  <div class="field">
+    <%= f.label :search_term %><br>
+    <%= f.text_field :search_term %>
+  </div>
   <div class="field">
     <%= f.label :start_address %><br>
     <%= f.text_field :start_address %>

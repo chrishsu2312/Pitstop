@@ -7,7 +7,7 @@ var poly;
 var polyOptions;
 var bounds;
 var marker;
-
+var temp;
 function make_map(pins, polyline){
   //Create the actual map
   var mapOptions = {
@@ -16,7 +16,6 @@ function make_map(pins, polyline){
   };
   map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
   bounds = new google.maps.LatLngBounds();
-
   //Adds the polyline
   line = new google.maps.geometry.encoding.decodePath(polyline);
   poly = new google.maps.Polyline({
@@ -26,7 +25,6 @@ function make_map(pins, polyline){
        StrokeOpacity: 1.0,
   });
   poly.setMap(map);
-
   //Adds the markers
   geocoder = new google.maps.Geocoder();
   if (pins != null) {
@@ -34,11 +32,17 @@ function make_map(pins, polyline){
       geocoder.geocode( { 'address': pins[i][0]}, function(results, status) {
         marker = new google.maps.Marker({
           position: results[0].geometry.location,
-               map: map
-        });
+               map: map,
+               title: 
+        });        
         bounds.extend(marker.position);
         map.fitBounds(bounds);
         zoom = getBoundsZoomLevel(bounds);
+        google.maps.event.addListener(marker, 'click', (function(marker) {
+          return function() {
+            $(showinfo).text(marker.title);
+          }
+        })(marker));
       });      
     }
   }

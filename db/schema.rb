@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140113014658) do
+ActiveRecord::Schema.define(version: 20140113235504) do
 
   create_table "paths", force: true do |t|
     t.string   "start_address"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20140113014658) do
     t.datetime "updated_at"
     t.string   "polyline"
     t.text     "place"
+    t.string   "search_term"
   end
 
 end
