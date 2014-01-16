@@ -2,6 +2,11 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@font-face
+{
+  font-family: ;
+  src: url();
+}
 
 #frontlogo {
   display: block;
@@ -9,12 +14,7 @@
   margin-right: auto;
 }
 
-#map-canvas{
-  height: 400px;
-  max-width: 600px;
-  margin-right: auto;
-  margin-left: auto;
-}
+
 
 #showinfo{
   text-align: center;
@@ -26,16 +26,41 @@
 
 #yelpwidget{
   float: right;
+  background-color: red;
+  width: 50px;
+  height: 50px;
 }
 
 #container{
-  width: 139px;
-  height: 81px;
+  height: 200px;
+  width: 800px;
+  background-color: blue;
   display: block;
   margin-left: auto;
   margin-right: auto;
+  position: relative; 
 }
-
+#bordermap{
+  display:block;
+  margin-right: auto;
+  margin-left: auto;
+  z-index: 1;
+  position: absolute;
+}
+#map-canvas{
+  height: 699px;
+  width: 1050px;
+  position: relative;
+  z-index: 2;
+  margin-right: auto;
+  margin-left: auto;
+  top: 27px;
+}
+#map-container{
+  width: 1111px;
+  margin-right: auto;
+  margin-left: auto;
+}
 input[type="submit"]{
   background: url(/images/magicbutton.png);
   height: 81px;

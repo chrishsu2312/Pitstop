@@ -3,7 +3,7 @@
 </style>
 
 <p id="notice"><%= notice %></p>
-<div>
+<div id="container">
 <div id='form_resubmit'>
   <%= render :partial => 'form' %>
 
@@ -13,8 +13,10 @@
 
 
 <div class="showinfo" id="showinfo"><p>Click on a location to see more information.<p></div>
-<div class="map-canvas" id="map-canvas"></div>
-<script>(function() { var s = document.createElement("script");s.async = true;s.onload = s.onreadystatechange = function(){getYelpWidget("boo-boo-records-inc-san-luis-obispo","300","RED","y","y","1");};s.src='http://chrisawren.com/widgets/yelp/yelpv2.js' ;var x = document.getElementsByTagName('script')[0];x.parentNode.insertBefore(s, x);})();</script>
+<div id="map-container">
+  <%= image_tag "border3.png", :id => "bordermap"%>
+  <div class="map-canvas" id="map-canvas"></div>
+</div>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZDPNNBRPCecNa5YSDdLRp0VokNsxiwKk&sensor=false&libraries=geometry&callback=initialize"></script>
 <script src="/assets/maps.js?body=1"></script>
 
