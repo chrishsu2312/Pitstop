@@ -34,7 +34,6 @@ end
 
 gem "therubyracer"
 gem "less-rails"
-gem "twitter-bootstrap-rails"
 
 gem 'google_map_directions'
 gem 'yelpster'

@@ -23,13 +23,13 @@ class PathsController < ApplicationController
   # GET /paths/1/edit
   def edit
   end
-  
+
   # Get /paths/1/in-and-out
   def place
     @path = Path.find(params[:id])
     client = Yelp::Client.new
     requests = Id.new(:yelp_business_id => params[:place])
-    
+
     @place = client.search(requests)
     @start_to_place = GoogleMapDirections::Directions.new(@path.start_address, @place["location"]["display_address"][0])    
     @place_to_end = GoogleMapDirections::Directions.new(@place["location"]["display_address"][0], @path.end_address)    
@@ -57,15 +57,13 @@ class PathsController < ApplicationController
   # PATCH/PUT /paths/1
   # PATCH/PUT /paths/1.json
   def update
-    respond_to do |format|
-      if @path.update(path_params)
-        format.html { redirect_to @path, notice: 'Path was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @path.errors, status: :unprocessable_entity }
-      end
+    directions = GoogleMapDirections::Directions.new(path_params["start_address"], path_params["end_address"])    
+    if @path.update({"start_address"=>path_params["start_address"], "end_address"=>path_params["end_address"], "polyline"=>directions.polyline, "search_term" => path_params["search_term"]})
+      get_yelp_response(@path.id, directions)
+      redirect_to @path
+    else
     end
+
   end
 
   # DELETE /paths/1
