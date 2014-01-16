@@ -2,11 +2,12 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-
 #frontlogo {
   display: block;
   margin-left: auto;
   margin-right: auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 #map-canvas{
@@ -44,4 +45,22 @@ input[type="submit"]{
   background-position:center; 
   border: none;
 
+}
+
+#path_search_term
+{
+	width: 300px;
+	margin-bottom: 20px;
+}
+
+#path_start_address
+{
+	width: 300px;
+	margin-bottom: 20px;
+}
+
+#path_end_address
+{
+	width: 300px;
+	margin-bottom: 20px;
 }
