@@ -12,7 +12,7 @@ class PathsController < ApplicationController
 
   # GET /paths/1
   # GET /paths/1.json
-  def show    
+  def show   
   end
 
   # GET /paths/new
@@ -24,6 +24,14 @@ class PathsController < ApplicationController
   def edit
   end
 
+  def placeinfo
+    client = Yelp::Client.new
+    requests = Id.new(:yelp_business_id => params[:id])
+
+    @place = client.search(requests)
+    render json: @place
+  end
+    
   # Get /paths/1/in-and-out
   def place
     @path = Path.find(params[:id])
@@ -101,16 +109,16 @@ class PathsController < ApplicationController
         :limit => 4,
         :radius_filter => [[directions.distance_in_meters, 500].max, 40000].min
       )
-      yelp_response = client.search(requests)      
+      yelp_response = client.search(requests)   
       if yelp_response != nil and yelp_response["businesses"] != nil
-        yelp_response["businesses"].each do |place|   
+        yelp_response["businesses"].each do |place|          
           if !redundants.member?(place["id"])
             @path.place << "*" + place["id"] + "|" + place["name"] + "$" + place["location"]["display_address"].join(' ') + "^"
             redundants.add(place["id"])
           end
         end
       end
-    end
+    end    
     @path.save
   end
 end

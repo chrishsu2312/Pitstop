@@ -1,0 +1,29 @@
+<%= form_for(@path) do |f| %>
+  <% if @path.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@path.errors.count, "error") %> prohibited this path from being saved:</h2>
+
+      <ul>
+        <% @path.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field" style="text-align: center" id="search_term_show">
+    <%= f.label "Query?", id:"showquery" %>
+    <%= f.text_field :search_term, id: "showbars"%>
+  </div>
+  <div class="field" style="text-align: center" id="start_address_show">
+    <%= f.label "From", id:"showstart"%>
+    <%= f.text_field :start_address, id: "showbars" %>
+  </div>
+  <div class="field" style="text-align: center" id="end_address_show">
+    <%= f.label "To", id:"showend" %>
+    <%= f.text_field :end_address, id: "showbars" %>
+  </div>
+  <div class="actions" style="text-align: center" id="submit_show">
+    <%= f.submit " "%>
+  </div>
+<% end %>

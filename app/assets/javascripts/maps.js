@@ -38,7 +38,7 @@ function marker_logic(pins){
   function callback(index) {
     return function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
-        addMarker(pins[index][1], results[0].geometry.location);
+        addMarker(pins[index][1], pins[index][2], results[0].geometry.location);
       }else{
         console.log(pins[index][1]);
       }
@@ -54,17 +54,26 @@ function marker_logic(pins){
   }
 }
 
-function addMarker(item, coor){
+function response(data, requestStatus, xhrObject) {
+  console.log(data);
+}
+
+function addMarker(item, url, coor){
   marker = new google.maps.Marker({
     position: coor,
          map: map,
-         text: item    
+         text: item,
+         url: url
   });
   google.maps.event.addListener(marker, 'click', (function(marker) {
     return function() {
-      infowindow.setContent('<p>'+marker.text+'</p>');
+      infowindow.setContent('<p>'+marker.text+" "+marker.url+'</p>');
       infowindow.open(map, marker);
-      $(showinfo).html('<p>'+marker.text+'</p>');
+      $(info).html('<p>'+marker.text+'</p>');
+      $.ajax({type: 'GET',
+        url: '/place/'+marker.url,        
+        success: response
+       });
     }
   })(marker));
   bounds.extend(marker.position);

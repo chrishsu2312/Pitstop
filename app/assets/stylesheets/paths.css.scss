@@ -3,6 +3,19 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
+@font-face{
+  font-family: 'Amatic-Bold';
+  src: url(/fonts/Amatic-Bold.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face{
+  font-family: 'Throw';
+  src: url(/fonts/ThrowMyHandsUpintheAir.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 #frontlogo {
   display: block;
   margin-left: auto;
@@ -11,27 +24,47 @@
   margin-bottom: 50px;
 }
 
-
-
-#showinfo{
+#info{
   text-align: center;
+  font-family: 'Amatic-Bold' !important;
+  font-size: 40px;
+  margin: 20px;
+}
+
+#directions{
+  text-align: center;
+  font-family: 'Throw' !important;
+  font-size: 25px;
+  margin: 10px;
 }
 
 #form_resubmit{
   float: left;
+  background-color: blue;
+  width: 500px;
+  height: 250px;
 }
-
+#line1{
+  top: 0px;
+  display:block;
+  margin-right: auto;
+  margin-left: auto;
+}
 #yelpwidget{
   float: right;
   background-color: red;
-  width: 50px;
-  height: 50px;
+  width: 500px;
+  height: 250px;
 }
+#barlogo{
+  display:block;
+  margin-right: auto;
+  margin-left: auto;
 
+}
 #container{
-  height: 300px;
-  width: 800px;
-  background-color: blue;
+  height:250px;
+  width: 1000px;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -67,6 +100,8 @@ input[type="submit"]{
   border: none;
 
 }
+
+
 
 #path_search_term
 {

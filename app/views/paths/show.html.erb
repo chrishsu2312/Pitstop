@@ -1,18 +1,20 @@
-<style>
-
-</style>
-
+<%= image_tag "barandlogo.png", :id => "barlogo"%>
 <p id="notice"><%= notice %></p>
 <div id="container">
-<div id='form_resubmit'>
-  <%= render :partial => 'form' %>
+  <div id='form_resubmit'>
+    <%= render :partial => 'formshow' %>
 
+  </div>
+  <div id='yelpwidget'></div>
 </div>
-<div id='yelpwidget'></div>
+
+
+<div class="showinfo" id="showinfo">
+  <p id="info">Click on a location to see more information.</p>
+  <%= image_tag "underlinebar.png", :id => "line1"%>
+  <p id="directions">Interested? Driving Directions</p>
 </div>
 
-
-<div class="showinfo" id="showinfo"><p>Click on a location to see more information.<p></div>
 <div id="map-container">
   <%= image_tag "border3.png", :id => "bordermap"%>
   <div class="map-canvas" id="map-canvas"></div>
@@ -23,7 +25,7 @@
 <script>
   var pins = [
   <% @path.place.scan(/\*(.*?)\^/).each do |p| %>
-    ["<%= p[0].scan(/\$(.*?)$/)[0][0] %>", "<%= p[0].scan(/\|(.*?)\$/)[0][0] %>"],
+    ["<%= p[0].scan(/\$(.*?)$/)[0][0] %>", "<%= p[0].scan(/\|(.*?)\$/)[0][0] %>", "<%= p[0].scan(/^(.*?)\|/)[0][0] %>"],
   <% end %>
   ]
 

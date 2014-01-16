@@ -1,4 +1,5 @@
 Mockup::Application.routes.draw do
+  get 'place/:id' => 'paths#placeinfo'
   get 'paths/:id/:place' => 'paths#place'
   resources :paths
   root 'paths#new'
