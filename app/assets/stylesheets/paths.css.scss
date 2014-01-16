@@ -2,16 +2,13 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-@font-face
-{
-  font-family: ;
-  src: url();
-}
 
 #frontlogo {
   display: block;
   margin-left: auto;
   margin-right: auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 
@@ -32,7 +29,7 @@
 }
 
 #container{
-  height: 200px;
+  height: 300px;
   width: 800px;
   background-color: blue;
   display: block;
@@ -69,4 +66,22 @@ input[type="submit"]{
   background-position:center; 
   border: none;
 
+}
+
+#path_search_term
+{
+	width: 300px;
+	margin-bottom: 20px;
+}
+
+#path_start_address
+{
+	width: 300px;
+	margin-bottom: 20px;
+}
+
+#path_end_address
+{
+	width: 300px;
+	margin-bottom: 20px;
 }
