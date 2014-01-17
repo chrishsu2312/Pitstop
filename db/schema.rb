@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 20140113235504) do
     t.string   "end_address"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "polyline"
+    t.text     "polyline"
     t.text     "place"
     t.string   "search_term"
   end
