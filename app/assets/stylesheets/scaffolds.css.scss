@@ -1,14 +1,28 @@
+@font-face{
+  font-family: 'Amatic-Bold';
+  src: url(/fonts/Amatic-Bold.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face{
+  font-family: 'Throw';
+  src: url(/fonts/ThrowMyHandsUpintheAir.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   background-color: #fff;
   color: #333;
-  font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 13px;
+  font-family: 'Amatic-Bold';
+  font-size: 35px;
   line-height: 18px;
 }
 
 ol, ul, td {
-  font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 13px;
+  font-family: 'Throw';
+  font-size: 20px;
   line-height: 18px;
 }
 

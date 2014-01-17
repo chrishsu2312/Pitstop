@@ -106,17 +106,65 @@ input[type="submit"]{
 #path_search_term
 {
 	width: 300px;
-	margin-bottom: 20px;
+	height: 20px;
+	margin-bottom: 30px;
+	font-family: 'Throw';
+	font-size: 20px;
+}
+
+#label1
+{
+	position:relative;
+	bottom: 10px;
 }
 
 #path_start_address
 {
 	width: 300px;
-	margin-bottom: 20px;
+	height: 20px;
+	margin-bottom: 30px;
+	font-family: 'Throw';
+	font-size: 20px;
+}
+
+#label2
+{
+	position:relative;
+	bottom: 10px;
 }
 
 #path_end_address
 {
 	width: 300px;
-	margin-bottom: 20px;
+	height: 20px;
+	margin-bottom: 30px;
+	font-family: 'Throw';
+	font-size: 20px;
+}
+
+#label3
+{
+	position:relative;
+	bottom: 10px;
+}
+
+#marker1
+{
+	position:relative;
+	top:5px;
+	right: 10px;
+}
+
+#marker2
+{
+	position:relative;
+	top:5px;
+	right: 10px;
+}
+
+#marker3
+{
+	position:relative;
+	top:5px;
+	right: 10px;
 }
