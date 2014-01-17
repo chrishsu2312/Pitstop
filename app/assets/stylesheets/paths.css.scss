@@ -37,7 +37,23 @@
   font-size: 25px;
   margin: 10px;
 }
+#yelpwidgetreview{
+  float: left;
 
+}
+#yelpwidgetpic{
+  margin-left: 10px;
+  float: left;
+}
+#yelpwidgetexcerpt{
+  font-family: 'Amatic-Bold';
+  font-size: 20px;
+}
+#yelpwidgetname{
+  font-family: 'Amatic-Bold';
+  font-size: 30px;
+  text-align: center;
+}
 #form_resubmit{
   float: left;
   background-color: blue;
@@ -52,9 +68,15 @@
 }
 #yelpwidget{
   float: right;
-  background-color: red;
-  width: 500px;
+  background-color: #FBFBFB;
+  width: 450px;
   height: 250px;
+  font-family: 'Amatic-Bold';
+  font-size: 40px;
+  position: relative;
+  text-align: center;
+  border:2px solid;
+  border-radius:25px;
 }
 #barlogo{
   display:block;
@@ -100,7 +122,6 @@ input[type="submit"]{
   border: none;
 
 }
-
 
 
 #path_search_term

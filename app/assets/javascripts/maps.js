@@ -4,6 +4,7 @@ var zoom;
 var infowindow;
 var bounds;
 var delay = 100;
+var temp;
 
 function make_map(pins, polyline){
   map_logic();  
@@ -56,6 +57,9 @@ function marker_logic(pins){
 
 function response(data, requestStatus, xhrObject) {
   console.log(data);
+  temp = data;
+  $(yelpwidget).html('<div id="yelpwidgetname">'+data.name+'</div><br><img src='+ data.image_url+' id="yelpwidgetpic"><br></img><img src='+data.rating_img_url+' id="yelpwidgetreview"></img><div id="yelpwidgetexcerpt">'+data.reviews[0].excerpt+'</p>');
+
 }
 
 function addMarker(item, url, coor){
@@ -70,6 +74,7 @@ function addMarker(item, url, coor){
       infowindow.setContent('<p>'+marker.text+" "+marker.url+'</p>');
       infowindow.open(map, marker);
       $(info).html('<p>'+marker.text+'</p>');
+      $(yelpwidget).text("Processing");
       $.ajax({type: 'GET',
         url: '/place/'+marker.url,        
         success: response
