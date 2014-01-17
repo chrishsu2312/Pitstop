@@ -57,6 +57,7 @@ class PathsController < ApplicationController
     if directions.status != 'OK'
       redirect_to new_path_path(@photo), alert: "Bad addresses, please try again"
     else
+      puts "managed to almost save"
       if @path.save
         puts "got to yelp directions"
         get_yelp_response(@path.id, directions)
