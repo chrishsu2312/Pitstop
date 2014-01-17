@@ -57,8 +57,13 @@ function marker_logic(pins){
 
 function response(data, requestStatus, xhrObject) {
   console.log(data);
-  temp = data;
-  $(yelpwidget).html('<div id="yelpwidgetname">'+data.name+'</div><br><img src='+ data.image_url+' id="yelpwidgetpic"><br></img><img src='+data.rating_img_url+' id="yelpwidgetreview"></img><div id="yelpwidgetexcerpt">'+data.reviews[0].excerpt+'</p>');
+  var html = '<div id="yelpwidgetname">'+data.name+'</div><br><img src='+ data.image_url+' id="yelpwidgetpic"><br></img><img src='+data.rating_img_url+' id="yelpwidgetreview"></img><div id="yelpwidgetexcerpt">';
+  for(i = 0; (i < data.reviews.length) && i < 3; i++)
+  {
+    html += "<p>"+data.reviews[i].excerpt+"</p>"
+  }
+  html += "</div><a href="+ data.url +" id='yelplink' target='_blank'>More at the<br> yelp website</a>"
+  $(yelpwidget).html(html);
 
 }
 
@@ -69,12 +74,14 @@ function addMarker(item, url, coor){
          text: item,
          url: url
   });
+  
+
   google.maps.event.addListener(marker, 'click', (function(marker) {
     return function() {
-      infowindow.setContent('<p>'+marker.text+" "+marker.url+'</p>');
+      infowindow.setContent('<p>'+marker.text+'</p>');
       infowindow.open(map, marker);
       $(info).html('<p>'+marker.text+'</p>');
-      $(yelpwidget).text("Processing");
+      $(yelpwidget).html('<div id="yelpwidgetname">Processing</div>');
       $.ajax({type: 'GET',
         url: '/place/'+marker.url,        
         success: response

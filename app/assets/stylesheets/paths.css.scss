@@ -38,7 +38,9 @@
   margin: 10px;
 }
 #yelpwidgetreview{
-  float: left;
+  position: relative;
+  top: -40px;
+  right: 50px;
 
 }
 #yelpwidgetpic{
@@ -46,13 +48,20 @@
   float: left;
 }
 #yelpwidgetexcerpt{
-  font-family: 'Amatic-Bold';
-  font-size: 20px;
+  font-family: Arial;
+  font-size: 12px;
+  float: right;
+  width: 320px;
+  top: -50px;
+  position: relative;
+  right: 10px;
+
 }
 #yelpwidgetname{
   font-family: 'Amatic-Bold';
   font-size: 30px;
   text-align: center;
+  margin: 10px;
 }
 #form_resubmit{
   float: left;
@@ -66,17 +75,25 @@
   margin-right: auto;
   margin-left: auto;
 }
+#initialyelpwidget{
+  font-family: 'Amatic-Bold';
+  font-size: 30px;
+  text-align: center;
+  height: 100px;
+}
+#yelplink{
+  font-size: 20px;
+}
 #yelpwidget{
   float: right;
   background-color: #FBFBFB;
   width: 450px;
-  height: 250px;
-  font-family: 'Amatic-Bold';
-  font-size: 40px;
+  height: 275px;  
   position: relative;
-  text-align: center;
   border:2px solid;
   border-radius:25px;
+  text-align: center;
+  top:4px;
 }
 #barlogo{
   display:block;
@@ -85,7 +102,7 @@
 
 }
 #container{
-  height:250px;
+  height:275px;
   width: 1000px;
   display: block;
   margin-left: auto;
