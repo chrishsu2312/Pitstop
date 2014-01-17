@@ -63,18 +63,15 @@
   text-align: center;
   margin: 10px;
 }
-#form_resubmit{
-  float: left;
-  background-color: blue;
-  width: 500px;
-  height: 250px;
-}
+
 #line1{
   top: 0px;
   display:block;
   margin-right: auto;
   margin-left: auto;
 }
+
+
 #initialyelpwidget{
   font-family: 'Amatic-Bold';
   font-size: 30px;
@@ -93,7 +90,7 @@
   border:2px solid;
   border-radius:25px;
   text-align: center;
-  top:4px;
+  top: -15px;
 }
 #barlogo{
   display:block;
@@ -109,6 +106,9 @@
   margin-right: auto;
   position: relative; 
 }
+
+/*RESULTS PAGE MAP*/
+
 #bordermap{
   display:block;
   margin-right: auto;
@@ -130,16 +130,8 @@
   margin-right: auto;
   margin-left: auto;
 }
-input[type="submit"]{
-  background: url(/images/magicbutton.png);
-  height: 81px;
-  width: 139px;
-  background-repeat:no-repeat;
-  background-position:center; 
-  border: none;
 
-}
-
+/*FRONT PAGE FORM*/
 
 #path_search_term
 {
@@ -205,4 +197,51 @@ input[type="submit"]{
 	position:relative;
 	top:5px;
 	right: 10px;
+}
+
+/*RESULTS PAGE FORM*/
+
+#showbars
+{
+	width: 400px;
+	height: 20px;
+	margin-bottom: 10px; 
+ 	margin-top: 10px;
+ 	/*position:relative;
+ 	left: 10px;	*/
+ 	float: right;
+}
+
+#form_resubmit{
+  float: left;
+  width: 500px;
+  height: 250px;
+}
+
+#showquery
+{
+	position:relative;
+	top: 10px;
+}
+
+#showstart
+{
+	position:relative;
+	top: 27px;
+}
+
+#showend
+{
+	position:relative;
+	top: 43px;
+}
+
+input[type="submit"]{
+  background: url(/images/magicbutton.png);
+  height: 81px;
+  width: 139px;
+  background-repeat:no-repeat;
+  background-position:center; 
+  border: none;
+	
 }
