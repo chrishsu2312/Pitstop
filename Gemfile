@@ -31,7 +31,7 @@ group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
-
+ruby "1.9.3"
 gem "therubyracer"
 gem "less-rails"
 
