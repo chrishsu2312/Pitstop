@@ -1,11 +1,26 @@
-<h1>Directions to <%=@place["name"]%></h1>
-<% @start_to_place.path.each do |x|%>
-  <%== x.HTML_instructions %><br>
-<% end %>
-<h1>Directions to <%=@path.end_address %></h1>
-<% @place_to_end.path.each do |x|%>
-  <%== x.HTML_instructions %><br>
-<% end %>
+<div id="place-container">
+  <div id="directions-places">
+    <h2 id="places-directions-places">Directions to <br> <%=@place["name"]%></h2>
+    <p><%= @start_to_place.distance_as_string %>, <%= @start_to_place.duration_as_string %></p><br>    
+    <% @start_to_place.path.each do |x|%>
+      <%== x.HTML_instructions %><br>
+    <% end %>
+    <h2 id="places-directions-places">Directions to <br><%=@path.end_address %></h2>
+    <p><%= @place_to_end.distance_as_string %>, <%= @start_to_place.duration_as_string %></p><br>    
+    <% @place_to_end.path.each do |x|%>
+      <%== x.HTML_instructions %><br>
+    <% end %>
+  </div>
+  <div id="map-canvas-directions">
+</div>
 
-<div id='yelpwidget'></div>
-<script>(function() { var s = document.createElement("script");s.async = true;s.onload = s.onreadystatechange = function(){getYelpWidget("boo-boo-records-inc-san-luis-obispo","300","RED","y","y","1");};s.src='http://chrisawren.com/widgets/yelp/yelpv2.js' ;var x = document.getElementsByTagName('script')[0];x.parentNode.insertBefore(s, x);})();</script>
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZDPNNBRPCecNa5YSDdLRp0VokNsxiwKk&sensor=false&libraries=geometry&callback=initialize"></script>
+<script src="/assets/maps-directions.js?body=1"></script>
+
+<script>
+
+  function initialize() {    
+    make_map(String("<%= @path.start_address %>"), String("<%= @place["location"]["display_address"].join(' ') %>"), String("<%= @path.end_address %>"), String("<%= @start_to_place.polyline %>"), String("<%= @place_to_end.polyline %>"));
+  }
+</script>

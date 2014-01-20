@@ -138,6 +138,7 @@
 
 #path_search_term
 {
+
 	width: 300px;
 	height: 20px;
 	margin-bottom: 30px;
@@ -247,4 +248,35 @@ input[type="submit"]{
   background-position:center; 
   border: none;
 	
+}
+
+/*Directions page*/
+#places-directions-places{
+  line-height: 25px;
+}
+#directions-places{
+  font-family: Helvetica;
+  font-size: 18px;
+  float: left;
+  background-color: #FBFBFB;
+  border:2px solid;
+  border-radius:25px;
+  text-align: center;
+  height: 750px;
+  width: 500px;
+}
+
+#place-container{
+  height: 750px;
+  margin-right: auto;
+  margin-left: auto;
+  width:1111px;
+
+}
+
+#map-canvas-directions{
+  float: right;
+  height: 750px;
+  width: 600px;
+  background-color: #FBFBFB;
 }
