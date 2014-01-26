@@ -9,7 +9,7 @@
       <%== x.HTML_instructions %><br>
     <% end %>
     <h2 id="places-directions-places">Directions to <br><%=@path.end_address %></h2>
-    <p><%= @place_to_end.distance_as_string %>, <%= @start_to_place.duration_as_string %></p><br>    
+    <p><%= @place_to_end.distance_as_string %>, <%= @place_to_end.duration_as_string %></p><br>    
     <% @place_to_end.path.each do |x|%>
       <%== x.HTML_instructions %><br>
     <% end %>
