@@ -54,7 +54,6 @@ function marker_logic(start, place, end){
     var geoOptions = {
       address: arr[item]
     };
-    console.log(arr[item]);
     geocoder.geocode(geoOptions, callback(item));
   }
 }

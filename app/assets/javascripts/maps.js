@@ -1,4 +1,3 @@
-//view-source:http://acleach.me.uk/gmaps/v3/plotaddresses.htm
 var map;
 var zoom;
 var infowindow;
@@ -8,7 +7,6 @@ var temp;
 
 function make_map(pins, polyline){
   map_logic();
-  console.log(polyline);
   polyline_logic(polyline); 
   marker_logic(pins);
 }
@@ -63,7 +61,6 @@ function marker_logic(pins){
 }
 
 function response(data, requestStatus, xhrObject) {
-  console.log(data);
   var html = '<div id="yelpwidgetname">'+data.name+'</div><br><img src='+ data.image_url+' id="yelpwidgetpic"><br></img><img src='+data.rating_img_url+' id="yelpwidgetreview"></img><div id="yelpwidgetexcerpt">';
   for(i = 0; (i < data.reviews.length) && i < 3; i++)
   {
@@ -88,7 +85,6 @@ function addMarker(item, url, coor){
       infowindow.setContent('<p>'+marker.text+'</p>');
       infowindow.open(map, marker);
       $(info).html('<p>'+marker.text+'</p>');
-      console.log(document.URL);
       $(directions).html("<a href="+document.URL+"/"+marker.url+">Interested? Driving Directions</a>");
       $(yelpwidget).html('<div id="yelpwidgetname">Processing</div>');
       $.ajax({type: 'GET',

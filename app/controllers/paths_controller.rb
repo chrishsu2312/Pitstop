@@ -46,21 +46,13 @@ class PathsController < ApplicationController
   # POST /paths
   # POST /paths.json
   def create
-    puts "got create"
     directions = GoogleMapDirections::Directions.new(path_params["start_address"], path_params["end_address"])    
-    puts "made directions"
-    puts directions
     @path = Path.new({"start_address"=>path_params["start_address"], "end_address"=>path_params["end_address"], "polyline"=>directions.polyline, "search_term" => path_params["search_term"]})    
-    puts "managed to make path"
-    puts @path
     if directions.status != 'OK'
       redirect_to new_path_path(@photo), alert: "Bad addresses, please try again"
     else
-      puts "managed to almost save"
       if @path.save
-        puts "got to yelp directions"
         get_yelp_response(@path.id, directions)
-        puts "got out of yelp directions"
         redirect_to @path
       else
         redirect_to new_path_path(@photo), alert: "You had a save error, please try again."
@@ -102,13 +94,11 @@ class PathsController < ApplicationController
   end
 
   def get_yelp_response(path_id, directions)
-    puts "got to response"
     @path = Path.find(path_id)
     @path.place = ""
     points = Polylines::Decoder.decode_polyline(@path.polyline)
     client = Yelp::Client.new
     redundants = Set.new
-    puts "got to client"
     (0..points.length-1).step(Integer(points.length/10)).map{|i| points[i]}.each do |x|  
       requests = GeoPoint.new(
         :term => @path["search_term"],
