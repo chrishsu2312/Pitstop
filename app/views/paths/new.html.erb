@@ -1,4 +1,8 @@
 <%= image_tag "pitstoplogo.png", :id => "frontlogo"%>
 <%= render 'form' %>
-
-
+<%= image_tag "/images/carloadingfinal2.gif", :border => '0', :alt => nil, :style => 'display:none'  %>
+<script>
+$("#submit-front").click(function() {
+  $("body").html("<img alt=\"Loadingcarmockup\" id=\"temp\" src=\"/images/carloadingfinal2.gif\"/><br><div id=\"loading\">Loading</div>");
+});
+</script>

@@ -1,12 +1,12 @@
 var map;
 var arr;
 
-function make_map(start, place, end, polylinefirst, polylinesecond){
-  map_logic();  
-  polyline_logic(polylinefirst, polylinesecond); 
-  marker_logic(start, place, end);
+function make_map_places(start, place, end, polylinefirst, polylinesecond){
+  map_logic_places();  
+  polyline_logic_places(polylinefirst, polylinesecond); 
+  marker_logic_places(start, place, end);
 }
-function map_logic(){
+function map_logic_places(){
   var mapOptions = {
     center: new google.maps.LatLng(37.322426, -122.024094),
     zoom: 14,
@@ -18,7 +18,7 @@ function map_logic(){
   bounds = new google.maps.LatLngBounds();
 }
 
-function polyline_logic(first, second){
+function polyline_logic_places(first, second){
   var line1 = new google.maps.geometry.encoding.decodePath(first);
   poly1 = new google.maps.Polyline({
     path: line1,
@@ -37,12 +37,12 @@ function polyline_logic(first, second){
   poly2.setMap(map);
 }
 
-function marker_logic(start, place, end){
+function marker_logic_places(start, place, end){
   arr = [start, place, end]
   function callback(index) {
     return function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
-        addMarker(arr[index], results[0].geometry.location);
+        addMarker_places(arr[index], results[0].geometry.location);
       }else{
         console.log(arr[index]);
       }
@@ -58,7 +58,7 @@ function marker_logic(start, place, end){
   }
 }
 
-function addMarker(item, coor){
+function addMarker_places(item, coor){
   marker = new google.maps.Marker({
     position: coor,
          map: map,
