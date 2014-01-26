@@ -1,8 +1,15 @@
-<%= image_tag "pitstoplogo.png", :id => "frontlogo"%>
-<%= render 'form' %>
-<%= image_tag "/images/carloadingfinal2.gif", :border => '0', :alt => nil, :style => 'display:none'  %>
+<div id="outside">
+  <%= image_tag "pitstoplogo.png", :id => "frontlogo"%>
+  <%= render 'form' %>
+</div>
+<img alt="Loadingcarmockup" id="temp" src="/images/carloadingfinal2.gif"/><br><div id="loading">Loading</div>
 <script>
-$("#submit-front").click(function() {
-  $("body").html("<img alt=\"Loadingcarmockup\" id=\"temp\" src=\"/images/carloadingfinal2.gif\"/><br><div id=\"loading\">Loading</div>");
-});
+  $("#loading").hide();
+  $("#temp").hide();
+  $("#submit-front").click(function() {
+    $("#outside").hide();
+    $("#temp").show();
+    $("#loading").show();
+  });
 </script>
+
