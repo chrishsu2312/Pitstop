@@ -39,8 +39,8 @@ class PathsController < ApplicationController
     requests = Id.new(:yelp_business_id => params[:place])
 
     @place = client.search(requests)
-    @start_to_place = GoogleMapDirections::Directions.new(@path.start_address, @place["location"]["display_address"][0])    
-    @place_to_end = GoogleMapDirections::Directions.new(@place["location"]["display_address"][0], @path.end_address)    
+    @start_to_place = GoogleMapDirections::Directions.new(@path.start_address, @place["location"]["display_address"].join(' ').gsub(/\(.*?\)/, ''))    
+    @place_to_end = GoogleMapDirections::Directions.new(@place["location"]["display_address"].join(' ').gsub(/\(.*?\)/, ''), @path.end_address) 
   end
 
   # POST /paths

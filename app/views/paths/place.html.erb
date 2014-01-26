@@ -28,6 +28,6 @@
 <script>
 
   function initialize() {    
-    make_map(String("<%= @path.start_address %>"), String("<%= @place["location"]["display_address"].join(' ') %>"), String("<%= @path.end_address %>"), String("<%= @start_to_place.polyline.gsub!("\\", "\\\\\\") %>"), String("<%= @place_to_end.polyline.gsub!("\\", "\\\\\\") %>"));
+    make_map_places(String("<%= @path.start_address %>"), String("<%= @place["location"]["display_address"].join(' ') %>"), String("<%= @path.end_address %>"), String("<%= @start_to_place.polyline.gsub!("\\", "\\\\\\") %>"), String("<%= @place_to_end.polyline.gsub!("\\", "\\\\\\") %>"));
   }
 </script>
