@@ -15,15 +15,19 @@
     <% end %>
   </div>
   <div id="map-canvas-directions">
+  </div>
+<div id="place-back">
+  <%=link_to "Back to Previous", path_path(@path)%>
 </div>
-
-
+<div id="footer">
+  
+</div>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZDPNNBRPCecNa5YSDdLRp0VokNsxiwKk&sensor=false&libraries=geometry&callback=initialize"></script>
 <script src="/assets/maps-directions.js?body=1"></script>
 
 <script>
 
   function initialize() {    
-    make_map(String("<%= @path.start_address %>"), String("<%= @place["location"]["display_address"].join(' ') %>"), String("<%= @path.end_address %>"), String("<%= @start_to_place.polyline %>"), String("<%= @place_to_end.polyline %>"));
+    make_map(String("<%= @path.start_address %>"), String("<%= @place["location"]["display_address"].join(' ') %>"), String("<%= @path.end_address %>"), String("<%= @start_to_place.polyline.gsub!("\\", "\\\\\\") %>"), String("<%= @place_to_end.polyline.gsub!("\\", "\\\\\\") %>"));
   }
 </script>

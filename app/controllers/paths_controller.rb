@@ -72,7 +72,7 @@ class PathsController < ApplicationController
   # PATCH/PUT /paths/1.json
   def update
     directions = GoogleMapDirections::Directions.new(path_params["start_address"], path_params["end_address"])    
-    if @path.update({"start_address"=>path_params["start_address"], "end_address"=>path_params["end_address"], "polyline"=>directions.polyline, "search_term" => path_params["search_term"]})
+    if @path.update({"start_address"=>path_params["start_address"], "end_address"=>path_params["end_address"], "polyline"=>directions.polyline.gsub!("\\", "\\\\\\") , "search_term" => path_params["search_term"]})
       get_yelp_response(@path.id, directions)
       redirect_to @path
     else

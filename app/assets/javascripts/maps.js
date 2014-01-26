@@ -7,7 +7,8 @@ var delay = 100;
 var temp;
 
 function make_map(pins, polyline){
-  map_logic();  
+  map_logic();
+  console.log(polyline);
   polyline_logic(polyline); 
   marker_logic(pins);
 }
@@ -41,7 +42,13 @@ function marker_logic(pins){
       if (status == google.maps.GeocoderStatus.OK) {
         addMarker(pins[index][1], pins[index][2], results[0].geometry.location);
       }else{
-        console.log(pins[index][1]);
+        if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
+          delay++;
+          var geoOpt = {
+            address: pins[index][0]
+          };
+          setTimeout(function(){geocoder.geocode(geoOpt, callback(index))},delay);
+        }        
       }
     };
   }
@@ -81,6 +88,8 @@ function addMarker(item, url, coor){
       infowindow.setContent('<p>'+marker.text+'</p>');
       infowindow.open(map, marker);
       $(info).html('<p>'+marker.text+'</p>');
+      console.log(document.URL);
+      $(directions).html("<a href="+document.URL+"/"+marker.url+">Interested? Driving Directions</a>");
       $(yelpwidget).html('<div id="yelpwidgetname">Processing</div>');
       $.ajax({type: 'GET',
         url: '/place/'+marker.url,        

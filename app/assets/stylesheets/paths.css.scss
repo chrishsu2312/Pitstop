@@ -133,6 +133,7 @@
   width: 1111px;
   margin-right: auto;
   margin-left: auto;
+  padding-bottom: 100px;
 }
 
 /*FRONT PAGE FORM*/
@@ -282,6 +283,7 @@ input[type="submit"]{
   text-align: center;
   height: 600px;
   width: 500px;
+  overflow:scroll;
 }
 
 #place-container{
@@ -298,4 +300,11 @@ input[type="submit"]{
   height: 600px;
   width: 600px;
   background-color: #FBFBFB;
+}
+
+#place-back{
+  text-align: center;
+  padding-top: 650px;
+  margin-right: auto;
+  margin-left: auto;
 }

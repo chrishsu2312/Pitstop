@@ -38,7 +38,7 @@
   ]
 
   function initialize() {    
-    make_map(pins, String("<%= @path.polyline %>"));
+    make_map(pins, String("<%= @path.polyline.gsub!("\\", "\\\\\\") %>"));
   }
 </script>
 
