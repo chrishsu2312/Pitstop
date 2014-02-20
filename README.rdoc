@@ -3,7 +3,13 @@ Pitstop code
 Visit at pitstop.ws
 
 Things to do:
--Autofill form fields
--Give the loading bar some actual meaning--ajax maybe?
--Maybe continue to add points as server is waiting
--Add safety catches when bad forms are inputed
+
+--Autofill form fields
+
+--Give the loading bar some actual meaning--ajax maybe?
+
+--Maybe continue to add points as server is waiting
+
+--Add safety catches when bad forms are inputed
+
+:+1:
